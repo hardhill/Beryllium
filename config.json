@@ -1,5 +1,5 @@
 {
-    "wwwroot":"c:\\palladium\\www",
+    "wwwroot":"c:\\beryllium\\www",
     "port":"8989",
-    "hostname":"localhost"
+    "hostname":"10.3.59.113"
 }
