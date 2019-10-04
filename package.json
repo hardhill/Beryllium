@@ -1,0 +1,28 @@
+{
+  "name": "palladium",
+  "version": "0.0.1",
+  "description": "web-server REST API ",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "palladium"
+  },
+  "keywords": [
+    "REST",
+    "API",
+    "express",
+    "server",
+    "for",
+    "PFR"
+  ],
+  "author": "W.Bielecki",
+  "license": "ISC",
+  "dependencies": {
+    "body-parser": "^1.19.0",
+    "express": "^4.17.1",
+    "tail": "^2.0.3"
+  }
+}
