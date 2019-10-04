@@ -1,6 +1,7 @@
 var DataMiner = {
     worked:false,
     downloadCounter:0,
-    file:{}
+    file:{},
+    lines:[]
 }
 exports.DataMiner = DataMiner
