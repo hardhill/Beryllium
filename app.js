@@ -19,28 +19,30 @@ app.use(bodyParser.urlencoded({ extended: false }))
 // parse application/json
 app.use(bodyParser.json())
 
-app.use('/',express.static(pathhtml))
+app.use('/', express.static(pathhtml))
 
-app.get('/',(req,res)=>{
-    res.sendFile(pathhtml+'/index.html')
+app.get('/', (req, res) => {
+    res.sendFile(pathhtml + '/index.html')
 })
 
-app.post('/srv/:mode',(req,res)=>{
+GetArrayFromLines(pathlogfile)
+
+app.post('/srv/:mode', (req, res) => {
     var mode = req.params.mode
-    switch (mode){
+    switch (mode) {
         case 'dataminer':
-            servControl.Dataminer(res,models.DataMiner)
+            servControl.Dataminer(res, models.DataMiner)
             break
         default:
-            res.sendFile(__dirname+'/pages/nomode.html')    
+            res.sendFile(__dirname + '/pages/nomode.html')
     }
-    
+
 })
-app.get('/srv/:mode',(req,res)=>{
-    res.sendFile(__dirname+'/pages/nopost.html')
+app.get('/srv/:mode', (req, res) => {
+    res.sendFile(__dirname + '/pages/nopost.html')
 })
 
-app.listen(port, hostname, ()=>{
+app.listen(port, hostname, () => {
     var timestart = Date(Date.now()).toString()
     console.log(`Server BERYLLIUM started on port ${port} and ${hostname} hostname at ${timestart}`)
 })
@@ -49,16 +51,21 @@ const watcher = chokidar.watch(pathlogfile, {
     ignored: /(^|[\/\\])\../, // ignore dotfiles
     persistent: true,
     ignorePermissionErrors: false
-  });
-  watcher.on('change',(path)=>{
-    console.log(path)
-    var input = fs.readFile(path,(err, data)=>{
-        if(err) throw err
-        var array = data.toString().split("\n");
-        for(var i=array.length;i<=0;i--){
-            models.DataMiner.lines.push(array[i-1])
+});
+watcher.on('change', (path) => {
+    GetArrayFromLines(path)
+})
+
+function GetArrayFromLines(path) {
+    var input = fs.readFile(path, (err, data) => {
+        models.DataMiner.lines = []
+        if (err) throw err;
+        var array = data.toString().split("\r\n");
+        for (var i = array.length; i >= 0; i--) {
+            models.DataMiner.lines.push(array[i - 1]);
         }
+
     })
-  })
+}
 
 
